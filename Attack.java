@@ -53,23 +53,33 @@ public class Attack {
         
         String tempHash;
         String tempPass;
-        String tempNewPass;
         
         for(int i=0; i<startingPoints.length; i++){
             table[i][0] = startingPoints[i];
             tempPass = startingPoints[i];
             for(int j=0; j<chainLength; j++){
                 tempHash = hashFunction(tempPass);
+                tempPass = reductionFunction(tempHash);
                 
                 if(j == chainLength-1){
                     table[i][1] = tempPass;
                 }
-                tempPass = reductionFunction(tempHash);
             }
         }
         
         return table;
     }
    
+    public void recreateChain(String startingPoint, int chainLength) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+        System.out.println(startingPoint);
+        
+        String tempHash;
+        String tempPass = startingPoint;
+        for(int i=0; i<chainLength; i++){
+            tempHash = hashFunction(tempPass);
+            tempPass = reductionFunction(tempHash);
+            System.out.println("\n" + i + "." + tempPass);
+        }
+    }
     
 }

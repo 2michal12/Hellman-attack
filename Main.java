@@ -13,8 +13,8 @@ public class Main {
     private static final int COUNT_PWD_FOR_USER = 99; //pocet hash-ov pre jedneho user-a
     private static final int COUNT_NUMARRAY_NUMBERS = 1000; //pocet moznych kombinacii ciselneho pola pre generovanie hesiel
     
-    private static final int COUNT_INITIAL_PASSWORDS = 5;
-    private static final int LENGTH_OF_CHAINS = 100;
+    private static final int COUNT_INITIAL_PASSWORDS = 1;
+    private static final int LENGTH_OF_CHAINS = 2;
     
     private static final String ADJ_TXT = "adj.txt";
     private static final String NOUNT_TXT = "noun.txt";
@@ -40,6 +40,9 @@ public class Main {
         for(int i=0; i<initialPass.length; i++){
                 System.out.println(rainbowTable[i][0] +" -> "+rainbowTable[i][1]);
         }
+        
+        //rekonstrukcia "chain" podla prveho hesla 
+        attack.recreateChain(rainbowTable[0][0], LENGTH_OF_CHAINS);
 
     }
     
