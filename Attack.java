@@ -61,9 +61,9 @@ public class Attack {
             for(int j=0; j<chainLength; j++){
                 tempHash = hashFunction(tempPass);
                 
-                if(j == chainLength-1)
+                if(j == chainLength-1){
                     table[i][1] = tempPass;
-                
+                }
                 tempPass = reductionFunction(tempHash);
             }
         }
