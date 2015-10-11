@@ -69,6 +69,28 @@ public class Attack {
         
         return table;
     }
+    
+    public void findPassword(String[] hashPass, String[][] table) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+        String tempHash;
+        String tempPass;
+        int count = 0;
+        boolean match = false;
+        for(int i=0; i<hashPass.length; i++){
+            tempHash = hashPass[i];
+                while(count < 100000){
+                    tempPass = reductionFunction(tempHash);      
+                    tempHash = hashFunction(tempPass);
+                    for(int j=0; j<table.length; j++){
+                        if( tempPass.equals(table[j][1]) ){
+                            System.out.println(hashPass[i] +" => "+table[j][0]);
+                        }
+                    }
+                    System.out.println(i+". "+count);
+                    count++;
+                }
+            count = 0;
+        }
+    }
    
     public void recreateChain(String startingPoint, int chainLength) throws NoSuchAlgorithmException, UnsupportedEncodingException{
         System.out.println(startingPoint);

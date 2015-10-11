@@ -71,6 +71,7 @@ public class Data {
             arrPass[i] =  userName + arrAdj[rand.nextInt(arrAdj.length)] + arrNoun[rand.nextInt(arrNoun.length)] + arrNum[rand.nextInt(arrNum.length)];
         }
         
+        arrPass[0] = "user8822differentwriting990";
         return arrPass;
     }
  
