@@ -1,6 +1,7 @@
 package nks2;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 
 /**
@@ -16,7 +17,7 @@ public class Main {
     private static final String NOUNT_TXT = "noun.txt";
     private static final String PWD_TXT = "pwdlist.txt";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         
         Data load = new Data();
         String[] arrAdj = load.wordsLoad(ADJ_TXT);
@@ -24,10 +25,18 @@ public class Main {
         String[] arrNum = load.createNumArray(COUNT_NUMBERS);
         String[] pwdArray = load.parsePWDlist(PWD_TXT, USER_NAME, COUNT_PWD_FOR_USER);
         
-        Attack attack = new Attack();
+        //nahodne vybrana mnozina hesiel, pre ktore budu generovane "chains"
+        final int countPass = 2;
+        String[] initialPass = load.randomPass(countPass ,USER_NAME, arrAdj, arrNoun, arrNum);
+        
+        
+        Attack attack = new Attack(arrAdj, arrNoun, arrNum);
+        final int chainLength = 5;
+        String[][] rainbowTable = attack.createTable(initialPass, chainLength);
+        
         
         //funkcia zo vstupneho hešu "pwdArray[0]" vráti redukciou vytvorené nové heslo bez prvej casti "userXXXX" ktore treba napevno pridat
-        String newPass = USER_NAME + attack.reductionFunction(pwdArray[0], arrAdj, arrNoun, arrNum);
+        String newPass = USER_NAME + attack.reductionFunction(pwdArray[0]);
         
         System.out.println(newPass);
         

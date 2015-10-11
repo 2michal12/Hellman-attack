@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -60,6 +61,17 @@ public class Data {
         }
         
         return arrNum;
+    }
+    
+    public String[] randomPass(int count, String userName, String[] arrAdj, String[] arrNoun, String[] arrNum){
+        String[] arrPass = new String[count];
+        Random rand = new Random();
+                
+        for(int i=0; i<count; i++){
+            arrPass[i] =  userName + arrAdj[rand.nextInt(arrAdj.length)] + arrNoun[rand.nextInt(arrNoun.length)] + arrNum[rand.nextInt(arrNum.length)];
+        }
+        
+        return arrPass;
     }
  
 }
