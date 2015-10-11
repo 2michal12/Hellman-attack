@@ -30,16 +30,9 @@ public class Main {
         String[] initialPass = load.randomPass(countPass ,USER_NAME, arrAdj, arrNoun, arrNum);
         
         
-        Attack attack = new Attack(arrAdj, arrNoun, arrNum);
+        Attack attack = new Attack(USER_NAME, arrAdj, arrNoun, arrNum);
         final int chainLength = 5;
-        String[][] rainbowTable = attack.createTable(initialPass, chainLength);
-        
-        
-        //funkcia zo vstupneho hešu "pwdArray[0]" vráti redukciou vytvorené nové heslo bez prvej casti "userXXXX" ktore treba napevno pridat
-        String newPass = USER_NAME + attack.reductionFunction(pwdArray[0]);
-        
-        System.out.println(newPass);
-        
+        String[][] rainbowTable = attack.createTable(initialPass, chainLength);     
 
     }
     
