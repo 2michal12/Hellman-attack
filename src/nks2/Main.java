@@ -1,4 +1,4 @@
-package nks2x;
+package nks2;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

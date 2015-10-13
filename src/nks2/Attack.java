@@ -1,4 +1,4 @@
-package nks2x;
+package nks2;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
