@@ -13,4 +13,5 @@ Hladanie hesiel:
 False alarms: 104
 
 BUILD SUCCESSFUL (total time: 54 seconds)
---------------------------------------------
+
+**--------------------------------------------
