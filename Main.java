@@ -13,8 +13,8 @@ public class Main {
     private static final int COUNT_PWD_FOR_USER = 99; //pocet hash-ov pre jedneho user-a
     private static final int COUNT_NUMARRAY_NUMBERS = 1000; //pocet moznych kombinacii ciselneho pola pre generovanie hesiel
     
-    private static final int COUNT_INITIAL_PASSWORDS = 500000;
-    private static final int LENGTH_OF_CHAINS = 100;
+    private static final int COUNT_INITIAL_PASSWORDS = 10000; //pocet inicializacnich hesiel (potrebne zistit ako spravne ich vyberat)
+    private static final int LENGTH_OF_CHAINS = 10; //dlzka retaze hashov (najst optimalny pocet pre dane hesla)
     
     private static final String ADJ_TXT = "adj.txt";
     private static final String NOUNT_TXT = "noun.txt";
