@@ -70,38 +70,52 @@ public class Attack {
         return table;
     }
     
-    public void findPassword(String[] hashPass, String[][] table) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+    public String[] findPassword(String[] hashPass, String[][] table, int chainLength) throws NoSuchAlgorithmException, UnsupportedEncodingException{
         String tempHash;
         String tempPass;
-        int count = 0;
-        boolean match = false;
+        String recreateChainReturn;
+        int count = 0; //pocet pouziti redukcnej a hashovacej funkcie na vstupny hash
+        Integer falseAlarms = 0;
+        String brokenPass[] = new String[hashPass.length+1];
+        
+        System.out.println("Hladanie hesiel: \n");
         for(int i=0; i<hashPass.length; i++){
             tempHash = hashPass[i];
-                while(count < 100000){
+                while(count < chainLength){
                     tempPass = reductionFunction(tempHash);      
                     tempHash = hashFunction(tempPass);
                     for(int j=0; j<table.length; j++){
                         if( tempPass.equals(table[j][1]) ){
-                            System.out.println(hashPass[i] +" => "+table[j][0]);
+                            recreateChainReturn = recreateChain(table[j][0], hashPass[i], chainLength);
+                            if( recreateChainReturn == null ){
+                                falseAlarms++;
+                                //System.out.println("False alarm!\n");
+                            }else{
+                                brokenPass[i] = recreateChainReturn;
+                                //System.out.println("PASS: "+(char)27 + "[32m"+ recreateChainReturn + (char)27 + "[0m");
+                                //System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++ \n");
+                            }
                         }
                     }
-                    System.out.println(i+". "+count);
                     count++;
                 }
             count = 0;
         }
+        brokenPass[hashPass.length] = falseAlarms.toString(); //vrati pocet falosnych najdeni hesla
+        return brokenPass;
     }
    
-    public void recreateChain(String startingPoint, int chainLength) throws NoSuchAlgorithmException, UnsupportedEncodingException{
-        System.out.println(startingPoint);
-        
+    private String recreateChain(String startingPoint, String hash, int chainLength) throws NoSuchAlgorithmException, UnsupportedEncodingException{       
         String tempHash;
         String tempPass = startingPoint;
         for(int i=0; i<chainLength; i++){
             tempHash = hashFunction(tempPass);
+            if( tempHash.equals(hash) ){
+                return tempPass;
+            }
             tempPass = reductionFunction(tempHash);
-            System.out.println("\n" + i + "." + tempPass);
         }
+        return null;
     }
     
 }
