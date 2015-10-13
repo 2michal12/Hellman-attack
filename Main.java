@@ -13,8 +13,8 @@ public class Main {
     private static final int COUNT_PWD_FOR_USER = 99; //pocet hash-ov pre jedneho user-a
     private static final int COUNT_NUMARRAY_NUMBERS = 1000; //pocet moznych kombinacii ciselneho pola pre generovanie hesiel
     
-    private static final int COUNT_INITIAL_PASSWORDS = 100000;
-    private static final int LENGTH_OF_CHAINS = 100000;
+    private static final int COUNT_INITIAL_PASSWORDS = 500000;
+    private static final int LENGTH_OF_CHAINS = 100;
     
     private static final String ADJ_TXT = "adj.txt";
     private static final String NOUNT_TXT = "noun.txt";
@@ -31,21 +31,17 @@ public class Main {
         //nahodne vybrana mnozina hesiel, pre ktore budu generovane "chains"
         String[] initialPass = load.randomPass(COUNT_INITIAL_PASSWORDS ,USER_NAME, arrAdj, arrNoun, arrNum);
         
-        
         Attack attack = new Attack(USER_NAME, arrAdj, arrNoun, arrNum);
         //vytvorenie rainbow tabulky
         String[][] rainbowTable = attack.createTable(initialPass, LENGTH_OF_CHAINS);   
         
-        //vypisanie tabulky (starting point -> endpoint) - docasne
-        /*for(int i=0; i<initialPass.length; i++){
-                System.out.println(rainbowTable[i][0] +" -> "+rainbowTable[i][1]);
-        }*/
-        
-        //rekonstrukcia "chain" podla prveho hesla 
-        //---attack.recreateChain(rainbowTable[0][0], LENGTH_OF_CHAINS);
-        
-        System.out.println("Hladanie hesiel: \n");
-        attack.findPassword(pwdArray, rainbowTable);
+        //hladanie hesiel 
+        String[] passwords = attack.findPassword(pwdArray, rainbowTable, LENGTH_OF_CHAINS);
+        for(int i=0; i < passwords.length-1; i++){
+            if( passwords[i] != null )
+                System.out.println(i+". "+(char)27 + "[32m"+ passwords[i] + (char)27 + "[0m");
+        }
+        System.out.println("\nFalse alarms: "+(char)27 + "[31m"+ passwords[passwords.length-1] + (char)27 + "[0m");
 
     }
     
