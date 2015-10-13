@@ -65,13 +65,31 @@ public class Data {
     
     public String[] randomPass(int count, String userName, String[] arrAdj, String[] arrNoun, String[] arrNum){
         String[] arrPass = new String[count];
-        Random rand = new Random();
-                
-        for(int i=0; i<count; i++){
-            arrPass[i] =  userName + arrAdj[rand.nextInt(arrAdj.length)] + arrNoun[rand.nextInt(arrNoun.length)] + arrNum[rand.nextInt(arrNum.length)];
+        
+//      NAHODNE VYTVARANIE HESIEL
+//        Random rand = new Random();
+//        for(int i=0; i<count; i++){
+//            arrPass[i] =  userName + arrAdj[rand.nextInt(arrAdj.length)] + arrNoun[rand.nextInt(arrNoun.length)] + arrNum[rand.nextInt(arrNum.length)];
+//        }
+        
+//        POSTUPNE VYTVARANIE HESIEL
+        int index = 0;
+        for(int i = 0; i < arrAdj.length-1; i++){
+            for(int j = 0; j < arrNoun.length-1; j++){
+                for(int k = 0; k < arrNum.length; k++){
+                    if(index != count){
+                        //System.out.println(userName + arrAdj[i] + arrNoun[j] + arrNum[k]);
+                        arrPass[index++] =  userName + arrAdj[i] + arrNoun[j] + arrNum[k];
+                    }else{
+                        return arrPass;
+                    }
+                }
+            }
         }
         
-        arrPass[0] = "user8822differentwriting990";
+//        arrPass[0] = "user8822importantmess850";
+//        arrPass[1] = "user8822differentwriting990";
+        
         return arrPass;
     }
  
