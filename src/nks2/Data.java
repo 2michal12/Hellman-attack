@@ -71,6 +71,9 @@ public class Data {
         for(int i=0; i<count; i++){
             arrPass[i] =  userName + arrAdj[rand.nextInt(arrAdj.length)] + arrNoun[rand.nextInt(arrNoun.length)] + arrNum[rand.nextInt(arrNum.length)];
         }
+		
+		// arrPass[0] = "1spravneheslo";
+		// arrPass[1] = "2spravneheslo";
         
 //        POSTUPNE VYTVARANIE HESIEL
 //        int index = 0;
