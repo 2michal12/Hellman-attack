@@ -8,7 +8,7 @@ import javax.xml.bind.DatatypeConverter;
 
 /**
  *
- * @author Michal
+ * @author Michal Majzel & Martin Krajcir
  */
 public class Attack {
         private final String userName;
@@ -78,7 +78,6 @@ public class Attack {
         Integer falseAlarms = 0;
         String brokenPass[] = new String[hashPass.length+1];
         
-        System.out.println("Hladanie hesiel: \n");
         for(int i=0; i<hashPass.length; i++){
             tempHash = hashPass[i];
                 while(count < chainLength){
@@ -89,12 +88,9 @@ public class Attack {
                             recreateChainReturn = recreateChain(table[j][0], hashPass[i], chainLength);
                             if( recreateChainReturn == null ){
                                 falseAlarms++;
-                                //System.out.println("False alarm!\n");
                             }else{
                                 brokenPass[i] = recreateChainReturn;
-                                //System.out.println("PASS: "+(char)27 + "[32m"+ recreateChainReturn + (char)27 + "[0m");
-                                //System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++ \n");
-                            }
+                           }
                         }
                     }
                     count++;

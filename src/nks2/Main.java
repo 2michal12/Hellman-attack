@@ -6,15 +6,15 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  *
- * @author Michal
+ * @author Michal Majzel & Martin Krajcir
  */
 public class Main {
     private static final String USER_NAME = "user8822"; //user na ktoreho hesla "utocime"
     private static final int COUNT_PWD_FOR_USER = 99; //pocet hash-ov pre jedneho user-a
     private static final int COUNT_NUMARRAY_NUMBERS = 1000; //pocet moznych kombinacii ciselneho pola pre generovanie hesiel
     
-    private static final int COUNT_INITIAL_PASSWORDS = 100000; //pocet inicializacnich hesiel (potrebne zistit ako spravne ich vyberat)
-    private static final int LENGTH_OF_CHAINS = 10; //dlzka retaze hashov (najst optimalny pocet pre dane hesla)
+    private static final int COUNT_INITIAL_PASSWORDS = 2000000; //pocet inicializacnich hesiel 
+    private static final int LENGTH_OF_CHAINS = 10; //dlzka retaze hashov "chain"
     
     private static final String ADJ_TXT = "adj.txt";
     private static final String NOUNT_TXT = "noun.txt";
@@ -33,14 +33,21 @@ public class Main {
         
         Attack attack = new Attack(USER_NAME, arrAdj, arrNoun, arrNum);
         //vytvorenie rainbow tabulky
+        System.out.println("Vytvaranie tabulky ... \n");
         String[][] rainbowTable = attack.createTable(initialPass, LENGTH_OF_CHAINS);   
         
         //hladanie hesiel 
+        System.out.println("Hladanie hesiel: \n");
         String[] passwords = attack.findPassword(pwdArray, rainbowTable, LENGTH_OF_CHAINS);
+        Boolean countSwitch = false;
         for(int i=0; i < passwords.length-1; i++){
-            if( passwords[i] != null )
+            if( passwords[i] != null ){
                 System.out.println(i+". "+(char)27 + "[32m"+ passwords[i] + (char)27 + "[0m");
+                countSwitch = true;
+            }
         }
+        if(!countSwitch)
+            System.out.println((char)27 + "[31m"+ "Ziadne heslo sa nepodarilo najst. Skuste zmenit nastavenia " + (char)27 + "[0m" + "COUNT_INITIAL_PASSWORDS" +(char)27 + "[31m"+ " alebo "+ (char)27 + "[0m" + "LENGTH_OF_CHAINS");
         System.out.println("\nFalse alarms: "+(char)27 + "[31m"+ passwords[passwords.length-1] + (char)27 + "[0m");
 
     }

@@ -4,11 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  *
- * @author Michal 8822
+ * @author Michal Majzel & Martin Krajcir
  */
 public class Data {
     
@@ -66,14 +67,30 @@ public class Data {
     public String[] randomPass(int count, String userName, String[] arrAdj, String[] arrNoun, String[] arrNum){
         String[] arrPass = new String[count];
         
-//      NAHODNE VYTVARANIE HESIEL
-        Random rand = new Random();
+//      NAHODNE VYTVARANIE HESIEL BEZ DUPLICIT
+        Integer[] indexAdj = new Integer[arrAdj.length];
+        Integer[] indexNoun = new Integer[arrNoun.length];
+        Integer[] indexNum = new Integer[arrNum.length];
+       
+        for (int i = 0; i < indexAdj.length; i++) {
+            indexAdj[i] = i;
+        }
+        Collections.shuffle(Arrays.asList(indexAdj));
+       
+        for (int i = 0; i < indexNoun.length; i++) {
+            indexNoun[i] = i;
+        }
+        Collections.shuffle(Arrays.asList(indexNoun));
+       
+        for (int i = 0; i < indexNum.length; i++) {
+            indexNum[i] = i;
+        }
+        Collections.shuffle(Arrays.asList(indexNum));
+        
         for(int i=0; i<count; i++){
-            arrPass[i] =  userName + arrAdj[rand.nextInt(arrAdj.length)] + arrNoun[rand.nextInt(arrNoun.length)] + arrNum[rand.nextInt(arrNum.length)];
+            arrPass[i] =  userName + arrAdj[indexAdj[i%arrAdj.length]] + arrNoun[indexNoun[i%arrNoun.length]] + arrNum[indexNum[i%arrNum.length]];    
         }
 		
-		// arrPass[0] = "1spravneheslo";
-		// arrPass[1] = "2spravneheslo";
         
 //        POSTUPNE VYTVARANIE HESIEL
 //        int index = 0;
