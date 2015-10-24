@@ -67,7 +67,7 @@ public class Data {
     public String[] randomPass(int count, String userName, String[] arrAdj, String[] arrNoun, String[] arrNum){
         String[] arrPass = new String[count];
         
-//      NAHODNE VYTVARANIE HESIEL BEZ DUPLICIT
+        //NAHODNE VYTVARANIE HESIEL BEZ DUPLICIT
         Integer[] indexAdj = new Integer[arrAdj.length];
         Integer[] indexNoun = new Integer[arrNoun.length];
         Integer[] indexNum = new Integer[arrNum.length];
@@ -90,22 +90,6 @@ public class Data {
         for(int i=0; i<count; i++){
             arrPass[i] =  userName + arrAdj[indexAdj[i%arrAdj.length]] + arrNoun[indexNoun[i%arrNoun.length]] + arrNum[indexNum[i%arrNum.length]];    
         }
-		
-        
-//        POSTUPNE VYTVARANIE HESIEL
-//        int index = 0;
-//        for(int i = 0; i < arrAdj.length-1; i++){
-//            for(int j = 0; j < arrNoun.length-1; j++){
-//                for(int k = 0; k < arrNum.length; k++){
-//                    if(index != count){
-//                        //System.out.println(userName + arrAdj[i] + arrNoun[j] + arrNum[k]);
-//                        arrPass[index++] =  userName + arrAdj[i] + arrNoun[j] + arrNum[k];
-//                    }else{
-//                        return arrPass;
-//                    }
-//                }
-//            }
-//        }
         
         return arrPass;
     }
